@@ -1,0 +1,41 @@
+#!/usr/bin/python
+
+# Copyright (c) 2014 Adafruit Industries
+# Author: Tony DiCola,Trabelsi Houssem
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+
+############ Example using a Raspberry Pi with DHT22 sensor without resistor 
+
+import Adafruit_DHT as dht
+from time import sleep
+import RPi.GPIO as g
+g.setmode(g.BCM)
+#Set DATA pin
+DHT = 4
+#Activate integrated  Pull_Down Resistor's raspberry
+g.setup(4, g.IN, pull_up_down=g.PUD_UP)
+while True:
+    #Read Temp and Hum from DHT22
+    h,t = dht.read_retry(dht.DHT22, DHT)
+    #Print Temperature and Humidity on Shell window
+    print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(t,h))
+    sleep(5) #Wait 5 seconds and read again
